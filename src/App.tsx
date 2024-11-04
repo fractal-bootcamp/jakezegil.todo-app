@@ -1,10 +1,13 @@
-import { useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
+import { useExtendedCounterStore } from "./store/counterStore";
+import { MiniCalculator } from "./miniCalculator";
+
+
 
 function App() {
-  const [count, setCount] = useState(0);
+  const { count: counter, increment, decrement, reset, multiply } = useExtendedCounterStore();
 
   return (
     <>
@@ -16,17 +19,19 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <h1>Vite + React</h1>
+      <MiniCalculator onCalculate={() => {}} />
+      <h1>Counter App</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
+        <div className="flex gap-4 justify-center">
+          <button onClick={decrement}>Decrement</button>
+          <button onClick={reset}>Reset</button>
+          <button onClick={increment}>Increment</button>
+          <button onClick={() => multiply(2)}>Double</button>
+        </div>
+        <p className="mt-4">Count: {counter}</p>
       </div>
       <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
+        Use the buttons above to modify the counter
       </p>
     </>
   );
